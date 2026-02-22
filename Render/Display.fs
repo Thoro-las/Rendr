@@ -45,16 +45,6 @@ type Display(width: int, height: int, pixels: Color[,]) =
         this.SetPixel (x, y) color
 
   member this.Show() =
-    let buffer = StringBuilder()
-    for j in [0.. (this.Height - 1) / 2] do
-      for i in [0.. (this.Width -1)] do
-        buffer.Append "\u001B[32;2;"
-        if 2*j + 1 > this.Height
-          then 
-        // let top = this.Pixels.[i, 2*j]
-        // let bottom = 
-        //   if 
-
     [ 0 .. (this.Height - 1) / 2 ]
     |> Seq.map (fun j ->
       [ 0 .. this.Width - 1 ]
