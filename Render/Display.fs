@@ -45,16 +45,21 @@ type Display(width: int, height: int, pixels: Color[,]) =
         this.SetPixel (x, y) color
 
   member this.Show() =
-    [ 0 .. (this.Height - 1) / 2 ]
-    |> Seq.map (fun j ->
-      [ 0 .. this.Width - 1 ]
-      |> Seq.map (fun i ->
-        sprintf
-          "\u001B[38;2;%sm\u001B[48;2;%sm▀\u001B[0m"
-          (Color.toANSI this.Pixels.[i, 2 * j])
-          (if 2 * j + 1 >= this.Height then
-             Color.toANSI Color.Red
-           else
-             Color.toANSI this.Pixels.[i, 2 * j + 1]))
-      |> String.concat "")
-    |> String.concat "\n"
+    let buffer = StringBuilder()
+
+    for j in [0..(this.Height - 1)/2] do
+      for i in [0..this.Width - 1] do
+        let top = Color.toANSI this.Pixels.[i, 2*j]
+        let bottom = Color.toANSI this.Pixels.[i, 2*j + 1]
+
+        buffer.Append "\u001B[38;2;" |> ignore
+        buffer.Append top |> ignore
+        buffer.Append "m\u001B[48;2;" |> ignore
+        buffer.Append bottom |> ignore
+        buffer.Append "m▀" |> ignore
+        buffer.Append "\u001B[0m" |> ignore
+
+      if j < (this.Height - 1) / 2 then
+        buffer.Append "\n" |> ignore
+    
+    buffer.ToString()

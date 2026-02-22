@@ -31,9 +31,9 @@ let main _ =
       screen.Clear Color.Black
 
       let b = abs (4 - ypos)
-      let cx, cy = width / 2, height
+      let cx, cy = width / 2, height / 2
       let r1 = float 20
-      let r2 = float 4
+      let r2 = float 8
 
       let pos t r1 r2 =
         int (r1 * cos (float t)),
@@ -44,21 +44,21 @@ let main _ =
 
       screen.Polygon [
         for i in [0..int xpos] do
-          add (cx, cy + b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 ((3.0 - float ypos) * r2))
+          add (cx, cy + b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 r2)
       ] Color.White
 
       for i in [0..int xpos] do
-        let p1 = add (cx, cy + b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 ((3.0 - float ypos) * r2))
-        let p2 = add (cx, cy - b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 ((3.0 - float ypos) * r2))
+        let p1 = add (cx, cy + b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 r2)
+        let p2 = add (cx, cy - b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 r2)
         screen.Line p1 p2 Color.Gray
 
       screen.Polygon [
         for i in [-1..int xpos] do
-          add (cx, cy - b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 ((3.0 - float ypos) * r2))
+          add (cx, cy - b) (pos (t + float i * 2.0 * Math.PI / float xpos) r1 r2)
       ] Color.White
 
       screen.Point (int xpos, int ypos) Color.Blue
-      printf "%s" (screen.Show())
+      Console.Write (screen.Show())
       tickTime <- DateTime.Now
 
   0
