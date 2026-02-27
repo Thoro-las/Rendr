@@ -6,9 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Render/Color.fs" />
+    <Compile Include="Utils/Color.fs" />
+    <Compile Include="Utils/Math.fs" />
+    <Compile Include="Utils/Image.fs" />
+    <Compile Include="Render/Projector.fs" />
     <Compile Include="Render/Display.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
 
 </Project>
