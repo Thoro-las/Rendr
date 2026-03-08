@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RendrLib", "RendrLib\RendrLib.fsproj", "{95F7A5AD-E481-4E8B-8556-E19C829B01D5}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "RendrTest", "RendrTest\RendrTest.fsproj", "{129B7F16-92BA-420A-A2EC-7248A6DCC4EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +14,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95F7A5AD-E481-4E8B-8556-E19C829B01D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F7A5AD-E481-4E8B-8556-E19C829B01D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F7A5AD-E481-4E8B-8556-E19C829B01D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F7A5AD-E481-4E8B-8556-E19C829B01D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129B7F16-92BA-420A-A2EC-7248A6DCC4EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129B7F16-92BA-420A-A2EC-7248A6DCC4EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129B7F16-92BA-420A-A2EC-7248A6DCC4EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129B7F16-92BA-420A-A2EC-7248A6DCC4EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

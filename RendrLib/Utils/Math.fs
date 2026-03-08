@@ -1,4 +1,5 @@
-namespace Utils
+namespace Rendr.Utils
+
 open System
 
 type Point2D(x: float, y: float) =

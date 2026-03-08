@@ -1,4 +1,4 @@
-namespace Render
+namespace Rendr.Render
 
 module Projector =
   [] |> ignore

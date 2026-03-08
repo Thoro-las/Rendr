@@ -1,5 +1,4 @@
-namespace Render
-
+namespace Rendr.Colors
 
 type Color = { r: byte; g: byte; b: byte; a: byte }
 

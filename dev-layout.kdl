@@ -1,0 +1,11 @@
+layout {
+  pane size=80 {
+    command "sh"
+    args "-c" "dotnet run --project RendrTest"
+  }
+
+  pane size=20 {
+    command "sh"
+    args "-c" "while true; do cat /tmp/rendrlog; done"
+  }
+}

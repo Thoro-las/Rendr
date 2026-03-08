@@ -1,16 +1,16 @@
-namespace Render
+namespace Rendr.Utils
 
 open SixLabors.ImageSharp
 
 type Image =
   { Width: int
     Height: int
-    Pixels: Render.Color[,] }
+    Pixels: Rendr.Colors.Color[,] }
 
 module Image =
   open SixLabors.ImageSharp.PixelFormats
 
-  let loadPNG (path: string) =
+  let loadPNG (path: string) : Image =
     let image = Image.Load<Rgba32> path
 
     let pixels =
@@ -20,7 +20,7 @@ module Image =
         { r = pixel.R
           g = pixel.G
           b = pixel.B
-          a = pixel.A })
+          a = pixel.A } : Rendr.Colors.Color)
 
     { Width = image.Width
       Height = image.Height
