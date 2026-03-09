@@ -5,19 +5,25 @@ open Rendr.Utils
 
 open System.Text
 
-type Display(width: int, height: int) =
+type Display(width: int, height: int, buffers: int) =
   member _.Width = width
   member _.Height = height
-  member val Pixels: Pixel array = Array.empty with get, set
 
-  member val private buffer = StringBuilder(6 * width * height)
+  member val currentBuffer: int = 0 with get, set
+  member val numberOfBuffers: int = buffers
 
-  member private this.InBounds (p: Point2D) =
+  member val Buffers: Buffer array =
+    Array.init buffers (fun _ -> Buffer(width, height)) with get, set
+
+  member val private displayBuffer = StringBuilder(6 * width * height)
+
+  member private this.InBounds(p: Point2D) =
     p.x >= 0 && p.x < this.Width && p.y >= 0 && p.y < this.Height
 
   member private this.SetPixel (p: Point2D) (color: Color) =
     if this.InBounds p && color <> Color.Transparent then
-      this.Pixels.[int p.y * this.Width + int p.x] <- color
+      this.Buffers.[this.currentBuffer].Pixels.[int p.y * this.Width + int p.x] <-
+        color
 
   member this.Point (p: Point2D) (color: Color) = this.SetPixel p color
 
@@ -51,23 +57,28 @@ type Display(width: int, height: int) =
       for y in [ 0 .. this.Height - 1 ] do
         this.SetPixel (Point2D(x, y)) color
 
+  member this.Swap() =
+    this.currentBuffer <- (this.currentBuffer + 1) % this.numberOfBuffers
+
   member this.Show() =
-    this.buffer.Clear() |> ignore
+    this.displayBuffer.Clear() |> ignore
+    let bufferPixels = this.Buffers.[this.currentBuffer].Pixels
 
     for j in [ 0 .. (this.Height - 1) / 2 ] do
       for i in [ 0 .. this.Width - 1 ] do
-        let ct = this.Pixels.[i + 2 * j * this.Width] 
-        let cb = this.Pixels.[i + (2 * j + 1) * this.Width]
+        let ct = bufferPixels.[i + 2 * j * this.Width]
+        let cb = bufferPixels.[i + (2 * j + 1) * this.Width]
 
-        this.buffer
+        this.displayBuffer
           .Append("\u001B[38;2;")
           .Append(Color.toANSI ct)
           .Append("m\u001B[48;2;")
           .Append(Color.toANSI cb)
-          .Append("m▀")
+          .Append
+          "m▀"
         |> ignore
 
       if j < (this.Height - 1) / 2 then
-        this.buffer.Append "\n" |> ignore
+        this.displayBuffer.Append "\n" |> ignore
 
-    this.buffer.ToString()
+    this.displayBuffer.ToString()
